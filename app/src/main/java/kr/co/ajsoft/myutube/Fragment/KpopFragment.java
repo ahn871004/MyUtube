@@ -35,6 +35,8 @@ import kr.co.ajsoft.myutube.R;
 
 public class KpopFragment extends Fragment {
 
+    private static final String TAG_PARSE = "TAG_PARSE";
+
     RecyclerView recyclerView;
 
     ItemAdapter adapter;
@@ -62,6 +64,10 @@ public class KpopFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         //대량의 데이터 추가 작업
+
+
+
+        items.clear();
         readRss();
         readRss1();
 
@@ -72,6 +78,7 @@ public class KpopFragment extends Fragment {
                 items.clear();
                 adapter.notifyDataSetChanged();
                 readRss();
+                readRss1();
 
             }
         });
@@ -138,6 +145,7 @@ public class KpopFragment extends Fragment {
                 int eventType=xpp.getEventType();
                 Item item=null;
                 String tagName=null;
+                String tagText=null;
 
                 while (eventType!=XmlPullParser.END_DOCUMENT){
                     switch (eventType){
@@ -148,7 +156,17 @@ public class KpopFragment extends Fragment {
                         case XmlPullParser.START_TAG:
 
                         tagName=xpp.getName();
+                            Log.i(TAG_PARSE, "START_TAG : " + xpp.getName());
 
+
+//                            int count = xpp.getAttributeCount();
+//                            Log.i(TAG_PARSE, "getAttributeCount() : " + count);
+//
+//                            for(int i = 0; i < count; i++){
+//                                Log.i(TAG_PARSE, i + " getAttributeName() : " + xpp.getAttributeName(i));
+//                                Log.i(TAG_PARSE, i + " getAttributeValue() : " + xpp.getAttributeValue(i));
+//                            }
+//                            break;
 
 
                         if(tagName.equals("entry")){
@@ -156,13 +174,22 @@ public class KpopFragment extends Fragment {
                         }else if(tagName.equals("yt:videoId")){
                             xpp.next();
                             if(item!=null) item.setId(xpp.getText());
-                        }else if(tagName.equals("title")){
+                        }else if(tagName.equals("title")) {
                             xpp.next();
-                            if(item!=null) item.setTitle(xpp.getText());
-
+                            if (item != null) item.setTitle(xpp.getText());
+                        }else if(tagName.equals("name")){
+                                xpp.next();
+                                if (item != null) item.setPublisher(xpp.getText());
                         }else if(tagName.equals("updated")){
                             xpp.next();
                             if(item!=null) item.setDate(xpp.getText());
+                        }else if(tagName.equals("media:thumbnail")){
+                            xpp.next();
+                            if(item!=null) item.setImgUrl(xpp.getAttributeValue(0));
+                           // Log.i(TAG_PARSE,  "getAttributeValue() : " + xpp.getAttributeValue(0));
+                        }else if(tagName.equals("media:statistics")){
+                            xpp.next();
+                            if(item!=null) item.setViews(xpp.getAttributeValue(0));
                         }
 
                         break;
@@ -170,6 +197,7 @@ public class KpopFragment extends Fragment {
 
 
                         case XmlPullParser.TEXT:
+                            //Log.i(TAG_PARSE, "TEXT : " + xpp.getText());
 
                             break;
 
@@ -184,7 +212,7 @@ public class KpopFragment extends Fragment {
                                 //UI변경 작업을 하고 싶다면..
                                 publishProgress();
 
-                                //Log.i("TAG",item.getTitle());
+
                             }
                             break;
                     }
@@ -217,12 +245,15 @@ public class KpopFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            adapter.notifyDataSetChanged();
-            //refreshLayout.setRefreshing(false);
 
 
 
-            Toast.makeText(getContext(), s+""+items.size(), Toast.LENGTH_SHORT).show();
+            //adapter.notifyDataSetChanged();
+            refreshLayout.setRefreshing(false);
+
+
+
+            //Toast.makeText(getContext(), s+""+items.size(), Toast.LENGTH_SHORT).show();
 
         }
     }

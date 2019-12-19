@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         //대신 Viewpager에서 탭버튼 글씨를 설정
 
         //제목줄에 서브제목 설정하기
-        getSupportActionBar().setSubtitle("Home");
+        getSupportActionBar().setSubtitle("K-POP");
 
         //탭변경 리스너
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

@@ -47,7 +47,8 @@ public class ItemAdapter extends RecyclerView.Adapter {
         Item item=items.get(position);
         vh.itemTitle.setText(item.getTitle());
         vh.date.setText(item.getDate());
-        vh.views.setText(item.getViews());
+        vh.views.setText("조회수: "+item.getViews());
+        vh.publisher.setText(item.getPublisher());
 
         if(item.getImgUrl()==null){
             vh.itemIv.setVisibility(View.GONE);
