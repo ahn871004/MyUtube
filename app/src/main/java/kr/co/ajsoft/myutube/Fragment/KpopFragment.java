@@ -70,6 +70,7 @@ public class KpopFragment extends Fragment {
         items.clear();
         readRss();
         readRss1();
+        readRss2();
 
         refreshLayout=view.findViewById(R.id.layout_swipe);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -79,12 +80,30 @@ public class KpopFragment extends Fragment {
                 adapter.notifyDataSetChanged();
                 readRss();
                 readRss1();
+                readRss2();
 
             }
         });
 
 
         return view;
+    }
+    private void readRss2() {
+        try {
+            URL url=new URL("https://www.youtube.com/feeds/videos.xml?channel_id=UChY4PXxJI0aJYsGT1X6INWA");
+
+            //스트림 연결하여 데이터 읽어오기 : 인터넷 작업은 반드시 퍼미션 작성해야함
+            //Network작업은 반드시 별도의 Thread만 할 수 있음.
+            //별도의 Thread객체 생성
+            RssFeedTask task=new RssFeedTask();
+            task.execute(url); //doInBackground() 메소드 발동(Thread의 start()와 같은 역할)
+            //배열 0 보내는 위치
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void readRss1() {

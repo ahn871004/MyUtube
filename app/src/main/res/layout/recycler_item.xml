@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-
-    app:cardBackgroundColor="#ffffff"
-    app:cardElevation="2dp"
-
+    android:orientation="vertical"
     >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
 
 
         <ImageView
@@ -30,11 +24,11 @@
                 android:layout_height="wrap_content"
                 android:text="This is title"
                 android:textSize="16sp"
-                android:layout_below="@id/item_iv"
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:textColor="#000000"
                 android:padding="4dp"
+                android:layout_marginLeft="10dp"
                 />
             <TextView
                 android:id="@+id/item_publisher"
@@ -42,10 +36,8 @@
                 android:layout_height="wrap_content"
                 android:text="Publisher"
                 android:textSize="14sp"
-                android:layout_below="@+id/item_title"
                 android:padding="4dp"
-
-
+                android:layout_marginLeft="10dp"
                 />
 
 
@@ -55,9 +47,8 @@
             android:layout_height="wrap_content"
             android:text="date"
             android:textSize="10sp"
-            android:layout_below="@+id/item_publisher"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="4dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
             />
 
         <TextView
@@ -66,14 +57,8 @@
             android:layout_height="wrap_content"
             android:text="views"
             android:textSize="10sp"
-            android:layout_below="@+id/item_date"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="4dp"
-
-
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
             />
 
-
-    </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>

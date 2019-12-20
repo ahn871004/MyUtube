@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager pager;
 
     FgViewAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
