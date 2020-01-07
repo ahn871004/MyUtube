@@ -13,7 +13,7 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 
-public class ItemActivity extends YouTubeBaseActivity {
+public class ItemActivity extends YouTubeBaseActivity{
 
     YouTubePlayerView playerView;
 
@@ -33,7 +33,7 @@ public class ItemActivity extends YouTubeBaseActivity {
         Intent intent=getIntent();
         final String id=intent.getStringExtra("Id");
 
-        Toast.makeText(this, id+"", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, id+"", Toast.LENGTH_SHORT).show();
 
 
 
@@ -53,6 +53,10 @@ public class ItemActivity extends YouTubeBaseActivity {
             }
         });
 
+
+
     }
+
+
 
 }

@@ -13,12 +13,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_kpop"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"/>
+            android:layout_width="480dp"
+            android:layout_height="360dp" />
+
+
+
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
 </RelativeLayout>

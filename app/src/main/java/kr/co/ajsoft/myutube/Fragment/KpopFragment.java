@@ -17,6 +17,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -37,19 +47,20 @@ public class KpopFragment extends Fragment {
 
     private static final String TAG_PARSE = "TAG_PARSE";
 
-    RecyclerView recyclerView;
-
-    ItemAdapter adapter;
-    ArrayList<Item> items=new ArrayList<>();
-
-    SwipeRefreshLayout refreshLayout;
-
+    private RecyclerView recyclerView;
+    private ItemAdapter adapter;
+    private ArrayList<Item> items=new ArrayList<>();
+    private SwipeRefreshLayout refreshLayout;
+    private String url1;
+    private ArrayList arr=new ArrayList();
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View view=inflater.inflate(R.layout.fragment_kpop, container, false);
 
         recyclerView=view.findViewById(R.id.recycler_kpop);
@@ -58,19 +69,56 @@ public class KpopFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
+        items.clear();
+        arr.clear();
+
 
         //리사이클러의 배치관리자 설정
         LinearLayoutManager layoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
-        //대량의 데이터 추가 작업
+
+        String addrUrl="http://ajsoft.dothome.co.kr/MyUtube/kpop.php";
+
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.POST, addrUrl, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                try {
+
+                    for(int i=0; i<response.length();i++) {
+                        JSONObject jsonObject = response.getJSONObject(i);
+
+                        url1 = jsonObject.getString("url");
+
+                        arr.add(i,url1);
 
 
+                        items.clear();
+                        adapter.notifyDataSetChanged();
 
-        items.clear();
-        readRss();
-        readRss1();
-        readRss2();
+                        readRss();
+
+                        //Toast.makeText(getContext(), arr+"", Toast.LENGTH_SHORT).show();
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(jsonArrayRequest);
+
+
 
         refreshLayout=view.findViewById(R.id.layout_swipe);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -78,9 +126,11 @@ public class KpopFragment extends Fragment {
             public void onRefresh() {
                 items.clear();
                 adapter.notifyDataSetChanged();
+
                 readRss();
-                readRss1();
-                readRss2();
+
+                Toast.makeText(getContext(), arr+"", Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -88,54 +138,22 @@ public class KpopFragment extends Fragment {
 
         return view;
     }
-    private void readRss2() {
-        try {
-            URL url=new URL("https://www.youtube.com/feeds/videos.xml?channel_id=UChY4PXxJI0aJYsGT1X6INWA");
 
-            //스트림 연결하여 데이터 읽어오기 : 인터넷 작업은 반드시 퍼미션 작성해야함
-            //Network작업은 반드시 별도의 Thread만 할 수 있음.
-            //별도의 Thread객체 생성
-            RssFeedTask task=new RssFeedTask();
-            task.execute(url); //doInBackground() 메소드 발동(Thread의 start()와 같은 역할)
-            //배열 0 보내는 위치
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    private void readRss1() {
-        try {
-            URL url=new URL("https://www.youtube.com/feeds/videos.xml?channel_id=UCMyB-XGM7dcovuPoKeunAMQ");
-
-            //스트림 연결하여 데이터 읽어오기 : 인터넷 작업은 반드시 퍼미션 작성해야함
-            //Network작업은 반드시 별도의 Thread만 할 수 있음.
-            //별도의 Thread객체 생성
-            RssFeedTask task=new RssFeedTask();
-            task.execute(url); //doInBackground() 메소드 발동(Thread의 start()와 같은 역할)
-            //배열 0 보내는 위치
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
     private void readRss() {
 
         try {
-            URL url=new URL("https://www.youtube.com/feeds/videos.xml?channel_id=UCtm_QoN2SIxwCE-59shX7Qg");
+            //URL url=new URL("https://www.youtube.com/feeds/videos.xml?channel_id=UCtm_QoN2SIxwCE-59shX7Qg");
+            for(int i=0; i<arr.size();i++) {
 
-            //스트림 연결하여 데이터 읽어오기 : 인터넷 작업은 반드시 퍼미션 작성해야함
-            //Network작업은 반드시 별도의 Thread만 할 수 있음.
-            //별도의 Thread객체 생성
-            RssFeedTask task=new RssFeedTask();
-            task.execute(url); //doInBackground() 메소드 발동(Thread의 start()와 같은 역할)
-            //배열 0 보내는 위치
-
+                URL url = new URL((String) arr.get(i));
+                //스트림 연결하여 데이터 읽어오기 : 인터넷 작업은 반드시 퍼미션 작성해야함
+                //Network작업은 반드시 별도의 Thread만 할 수 있음.
+                //별도의 Thread객체 생성
+                RssFeedTask task = new RssFeedTask();
+                task.execute(url); //doInBackground() 메소드 발동(Thread의 start()와 같은 역할)
+                //배열 0 보내는 위치
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -174,7 +192,7 @@ public class KpopFragment extends Fragment {
 
                         case XmlPullParser.START_TAG:
 
-                        tagName=xpp.getName();
+                            tagName=xpp.getName();
                             Log.i(TAG_PARSE, "START_TAG : " + xpp.getName());
 
 
@@ -188,30 +206,30 @@ public class KpopFragment extends Fragment {
 //                            break;
 
 
-                        if(tagName.equals("entry")){
-                            item=new Item();
-                        }else if(tagName.equals("yt:videoId")){
-                            xpp.next();
-                            if(item!=null) item.setId(xpp.getText());
-                        }else if(tagName.equals("title")) {
-                            xpp.next();
-                            if (item != null) item.setTitle(xpp.getText());
-                        }else if(tagName.equals("name")){
+                            if(tagName.equals("entry")){
+                                item=new Item();
+                            }else if(tagName.equals("yt:videoId")){
+                                xpp.next();
+                                if(item!=null) item.setId(xpp.getText());
+                            }else if(tagName.equals("title")) {
+                                xpp.next();
+                                if (item != null) item.setTitle(xpp.getText());
+                            }else if(tagName.equals("name")){
                                 xpp.next();
                                 if (item != null) item.setPublisher(xpp.getText());
-                        }else if(tagName.equals("updated")){
-                            xpp.next();
-                            if(item!=null) item.setDate(xpp.getText());
-                        }else if(tagName.equals("media:thumbnail")){
-                            xpp.next();
-                            if(item!=null) item.setImgUrl(xpp.getAttributeValue(0));
-                           // Log.i(TAG_PARSE,  "getAttributeValue() : " + xpp.getAttributeValue(0));
-                        }else if(tagName.equals("media:statistics")){
-                            xpp.next();
-                            if(item!=null) item.setViews(xpp.getAttributeValue(0));
-                        }
+                            }else if(tagName.equals("updated")){
+                                xpp.next();
+                                if(item!=null) item.setDate(xpp.getText());
+                            }else if(tagName.equals("media:thumbnail")){
+                                xpp.next();
+                                if(item!=null) item.setImgUrl(xpp.getAttributeValue(0));
+                                // Log.i(TAG_PARSE,  "getAttributeValue() : " + xpp.getAttributeValue(0));
+                            }else if(tagName.equals("media:statistics")){
+                                xpp.next();
+                                if(item!=null) item.setViews(xpp.getAttributeValue(0));
+                            }
 
-                        break;
+                            break;
 
 
 
@@ -238,11 +256,7 @@ public class KpopFragment extends Fragment {
 
                     eventType=xpp.next();
 
-
                 }
-
-
-
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -265,15 +279,11 @@ public class KpopFragment extends Fragment {
             super.onPostExecute(s);
 
 
-
-
             //adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
 
-
-
             //Toast.makeText(getContext(), s+""+items.size(), Toast.LENGTH_SHORT).show();
-
         }
+
     }
 }

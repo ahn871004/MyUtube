@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import kr.co.ajsoft.myutube.Adapter.FgViewAdapter;
+import kr.co.ajsoft.myutube.Fragment.KpopFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     ViewPager pager;
 
     FgViewAdapter adapter;
+
+
 
 
     @Override
@@ -62,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         //제목줄에 서브제목 설정하기
         getSupportActionBar().setSubtitle("K-POP");
+
+
 
         //탭변경 리스너
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
