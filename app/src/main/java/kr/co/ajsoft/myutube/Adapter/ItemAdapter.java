@@ -23,6 +23,8 @@ public class ItemAdapter extends RecyclerView.Adapter {
 
     ArrayList<Item> items;
     Context context;
+    String newStr,result,numresult2;
+    double numresult1;
 
     public ItemAdapter(ArrayList<Item> items, Context context) {
         this.items = items;
@@ -47,7 +49,8 @@ public class ItemAdapter extends RecyclerView.Adapter {
         Item item=items.get(position);
         vh.itemTitle.setText(item.getTitle());
         vh.date.setText(item.getDate());
-        vh.views.setText("조회수: "+item.getViews());
+        vh.date.setText("등록일 "+aaa(item.getDate()));
+        vh.views.setText("조회수 "+bbb(item.getViews()));
         vh.publisher.setText(item.getPublisher());
 
         if(item.getImgUrl()==null){
@@ -58,6 +61,37 @@ public class ItemAdapter extends RecyclerView.Adapter {
 
         }
 
+    }
+
+    String aaa(String str){
+
+        newStr=str.replace('T',' ');
+        result=newStr.substring(0,16);
+
+        return result;
+    }
+
+    String bbb(String str){
+        int num=Integer.parseInt(str);
+        if(num<100){
+            numresult2=num+"회";
+            return numresult2;
+        }else if(num>=100 && num<1000) {
+            numresult1 = num * 0.001;
+            numresult2 = String.format("%.1f", numresult1);
+            return numresult2 + "천회";
+        }else if(num>=1000 && num<10000){
+            numresult1=num*0.0001;
+            numresult2 = String.format("%.1f", numresult1);
+            return numresult2 + "만회";
+
+        }else if(num>=10000){
+            numresult1=num*0.0001;
+            numresult2=String.format("%.0f",numresult1);
+            return numresult2+"만회";
+        }else {
+            return num+"";
+        }
     }
 
     @Override

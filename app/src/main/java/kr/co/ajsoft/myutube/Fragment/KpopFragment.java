@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,6 +37,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import kr.co.ajsoft.myutube.Adapter.ItemAdapter;
 import kr.co.ajsoft.myutube.ItemActivity;
@@ -56,6 +59,8 @@ public class KpopFragment extends Fragment {
 
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,12 +70,19 @@ public class KpopFragment extends Fragment {
 
         recyclerView=view.findViewById(R.id.recycler_kpop);
 
+
+
         adapter=new ItemAdapter(items,getContext());
 
         recyclerView.setAdapter(adapter);
 
         items.clear();
+
+
         arr.clear();
+
+
+
 
 
         //리사이클러의 배치관리자 설정
@@ -95,11 +107,16 @@ public class KpopFragment extends Fragment {
 
 
                         items.clear();
+
+
+
                         adapter.notifyDataSetChanged();
+
 
                         readRss();
 
-                        //Toast.makeText(getContext(), arr+"", Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(getContext(), arr+"", Toast.LENGTH_SHORT).show();
 
                     }
                 } catch (JSONException e) {
@@ -125,7 +142,10 @@ public class KpopFragment extends Fragment {
             @Override
             public void onRefresh() {
                 items.clear();
+
                 adapter.notifyDataSetChanged();
+
+
 
                 readRss();
 
@@ -193,7 +213,7 @@ public class KpopFragment extends Fragment {
                         case XmlPullParser.START_TAG:
 
                             tagName=xpp.getName();
-                            Log.i(TAG_PARSE, "START_TAG : " + xpp.getName());
+                            //Log.i(TAG_PARSE, "START_TAG : " + xpp.getName());
 
 
 //                            int count = xpp.getAttributeCount();
@@ -243,6 +263,8 @@ public class KpopFragment extends Fragment {
                             if(tagName.equals("entry")){
                                 //읽어온 기사 한개를 대량의 데이터에 추가
                                 items.add(item);
+                                Collections.shuffle(items);
+
                                 item=null;
                                 //리사이클러의 어댑터에게 데이터가
                                 //변경되었다는 것을 통지(화면갱신)
