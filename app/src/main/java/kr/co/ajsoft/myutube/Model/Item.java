@@ -8,18 +8,19 @@ public class Item {
     String date;
     String views;
     String publisher;
+    String addList;
 
     public Item() {
-
     }
 
-    public Item(String title, String id, String imgUrl, String date, String views, String publisher) {
+    public Item(String title, String id, String imgUrl, String date, String views, String publisher, String addList) {
         this.title = title;
         this.id = id;
         this.imgUrl = imgUrl;
         this.date = date;
         this.views = views;
         this.publisher = publisher;
+        this.addList = addList;
     }
 
     public String getTitle() {
@@ -68,5 +69,13 @@ public class Item {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getAddList() {
+        return addList;
+    }
+
+    public void setAddList(String addList) {
+        this.addList = addList;
     }
 }

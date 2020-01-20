@@ -34,7 +34,7 @@
                 app:tabSelectedTextColor="#FFC107"
                 app:tabIndicatorColor="#FFC107"
                 app:tabIndicatorHeight="4dp"
-                app:tabMode="fixed"
+                app:tabMode="scrollable"
                 app:tabGravity="fill"
                 >
 
@@ -55,18 +55,18 @@
 
 
     <!--2. 왼쪽 사이드 메뉴-->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer_menu"
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:id="@+id/nav"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="start"-->
+<!--        app:headerLayout="@layout/drawer_header"-->
+<!--        app:menu="@menu/drawer_menu"-->
 
-        >
+<!--        >-->
 
 
-    </com.google.android.material.navigation.NavigationView>
+<!--    </com.google.android.material.navigation.NavigationView>-->
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

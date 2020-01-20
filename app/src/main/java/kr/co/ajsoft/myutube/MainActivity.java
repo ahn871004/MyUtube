@@ -3,27 +3,38 @@ package kr.co.ajsoft.myutube;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.Collections;
 
 import kr.co.ajsoft.myutube.Adapter.FgViewAdapter;
 import kr.co.ajsoft.myutube.Fragment.KpopFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    NavigationView navigationView;
+    //NavigationView navigationView;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
+    //SearchView searchView;
+
 
     TabLayout tabLayout;
 
@@ -42,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        navigationView=findViewById(R.id.nav);
-        navigationView.setItemIconTintList(null);
+        //navigationView=findViewById(R.id.nav);
+        //navigationView.setItemIconTintList(null);
 
         drawerLayout=findViewById(R.id.layout_drawer);
         drawerToggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
@@ -89,26 +100,26 @@ public class MainActivity extends AppCompatActivity {
 
 
         //네비게이션뷰에 아이템선택 리스너 추가
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.menu_aa:
-
-                        break;
-                    case R.id.menu_bb:
-
-                        break;
-                    case R.id.menu_cc:
-
-                        break;
-
-                }
-                drawerLayout.closeDrawer(navigationView); //클릭되면 돌아가기
-
-                return false;
-            }
-        });
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()){
+//                    case R.id.menu_aa:
+//
+//                        break;
+//                    case R.id.menu_bb:
+//
+//                        break;
+//                    case R.id.menu_cc:
+//
+//                        break;
+//
+//                }
+//                drawerLayout.closeDrawer(navigationView); //클릭되면 돌아가기
+//
+//                return false;
+//            }
+//        });
 
 
     }//onCreate Method..
@@ -116,17 +127,42 @@ public class MainActivity extends AppCompatActivity {
     //옵션메뉴 만들어주는 메소드
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.option,menu);
-
-        return super.onCreateOptionsMenu(menu);
-
-        // onOptionsItemSelected(new On)
-    }
 
 
-
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        getMenuInflater().inflate(R.menu.option,menu);
+//
+//        MenuItem item=menu.findItem(R.id.menu_search);
+//        searchView=(SearchView)item.getActionView();
+//
+//        searchView.setQueryHint("검색");
+//        searchView.setMaxWidth(Integer.MAX_VALUE);
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//
+//                Toast.makeText(MainActivity.this,query, Toast.LENGTH_SHORT).show();
+//
+//                searchView.setQuery("",true);
+//
+//                searchView.setIconified(true);
+//                searchView.setBackgroundColor(Color.WHITE);
+//
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
+//
+//        return super.onCreateOptionsMenu(menu);
+//
+//        // onOptionsItemSelected(new On)
+//    }
 
 }

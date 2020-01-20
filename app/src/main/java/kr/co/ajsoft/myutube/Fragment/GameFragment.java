@@ -1,7 +1,7 @@
 package kr.co.ajsoft.myutube.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -10,12 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,18 +34,15 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import kr.co.ajsoft.myutube.Adapter.ItemAdapter;
-import kr.co.ajsoft.myutube.ItemActivity;
 import kr.co.ajsoft.myutube.Model.Item;
 import kr.co.ajsoft.myutube.R;
 
 
-public class KpopFragment extends Fragment {
 
-    //private static final String TAG_PARSE = "TAG_PARSE";
+public class GameFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ItemAdapter adapter;
@@ -57,18 +51,12 @@ public class KpopFragment extends Fragment {
     private String url1;
     private ArrayList arr=new ArrayList();
 
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_game, container, false);
 
-
-        View view=inflater.inflate(R.layout.fragment_kpop, container, false);
-
-        recyclerView=view.findViewById(R.id.recycler_kpop);
+        recyclerView=view.findViewById(R.id.recycler_game);
 
 
 
@@ -88,7 +76,7 @@ public class KpopFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        String addrUrl="http://ajsoft.dothome.co.kr/MyUtube/kpop.php";
+        String addrUrl="http://ajsoft.dothome.co.kr/MyUtube/game.php";
 
         JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.POST, addrUrl, null, new Response.Listener<JSONArray>() {
             @Override
@@ -143,9 +131,11 @@ public class KpopFragment extends Fragment {
 
                 adapter.notifyDataSetChanged();
 
+
+
                 readRss();
 
-               // Toast.makeText(getContext(), arr+"", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), arr+"", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -166,7 +156,7 @@ public class KpopFragment extends Fragment {
                 //스트림 연결하여 데이터 읽어오기 : 인터넷 작업은 반드시 퍼미션 작성해야함
                 //Network작업은 반드시 별도의 Thread만 할 수 있음.
                 //별도의 Thread객체 생성
-                RssFeedTask task = new RssFeedTask();
+                GameFragment.RssFeedTask task = new GameFragment.RssFeedTask();
                 task.execute(url); //doInBackground() 메소드 발동(Thread의 start()와 같은 역할)
                 //배열 0 보내는 위치
             }

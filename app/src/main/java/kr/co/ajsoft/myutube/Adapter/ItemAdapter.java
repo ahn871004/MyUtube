@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,9 +50,11 @@ public class ItemAdapter extends RecyclerView.Adapter {
         Item item=items.get(position);
         vh.itemTitle.setText(item.getTitle());
         vh.date.setText(item.getDate());
-        vh.date.setText("등록일 "+aaa(item.getDate()));
-        vh.views.setText("조회수 "+bbb(item.getViews()));
+        vh.date.setText("등록일 "+newDate(item.getDate()));
+        vh.views.setText("조회수 "+count(item.getViews()));
         vh.publisher.setText(item.getPublisher());
+
+
 
         if(item.getImgUrl()==null){
             vh.itemIv.setVisibility(View.GONE);
@@ -63,7 +66,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
 
     }
 
-    String aaa(String str){
+    String newDate(String str){
 
         newStr=str.replace('T',' ');
         result=newStr.substring(0,16);
@@ -71,7 +74,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
         return result;
     }
 
-    String bbb(String str){
+    String count(String str){
         int num=Integer.parseInt(str);
         if(num<100){
             numresult2=num+"회";
@@ -106,6 +109,8 @@ public class ItemAdapter extends RecyclerView.Adapter {
         TextView date;
         TextView views;
         TextView publisher;
+        ImageButton addList;
+
 
         public VH(@NonNull View itemView) {
             super(itemView);
@@ -115,6 +120,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
             date=itemView.findViewById(R.id.item_date);
             views=itemView.findViewById(R.id.item_views);
             publisher=itemView.findViewById(R.id.item_publisher);
+            addList=itemView.findViewById(R.id.iv_add_list);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

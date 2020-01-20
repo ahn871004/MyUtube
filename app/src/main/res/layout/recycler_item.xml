@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:layout_marginBottom="5sp"
     >
 
 
@@ -19,8 +20,9 @@
             />
 
             <TextView
+                android:layout_below="@+id/item_iv"
                 android:id="@+id/item_title"
-                android:layout_width="match_parent"
+                android:layout_width="320sp"
                 android:layout_height="wrap_content"
                 android:text="This is title"
                 android:textSize="16sp"
@@ -31,8 +33,9 @@
                 android:layout_marginLeft="10dp"
                 />
             <TextView
+                android:layout_below="@+id/item_title"
                 android:id="@+id/item_publisher"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Publisher"
                 android:textSize="14sp"
@@ -40,15 +43,30 @@
                 android:layout_marginLeft="10dp"
                 />
 
+            <ImageButton
+                android:id="@+id/iv_add_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_iv"
+                android:src="@drawable/ic_add_list"
+                android:layout_alignParentRight="true"
+                android:backgroundTint="#00ffffff"
+
+
+                />
+
+
 
         <TextView
             android:id="@+id/item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="date"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:layout_gravity="right"
             android:layout_marginRight="10dp"
+            android:layout_below="@+id/item_publisher"
+            android:layout_alignParentRight="true"
             />
 
         <TextView
@@ -56,9 +74,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="views"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:layout_gravity="right"
             android:layout_marginRight="10dp"
+            android:layout_below="@id/item_date"
+            android:layout_alignParentRight="true"
             />
 
-</LinearLayout>
+</RelativeLayout>
