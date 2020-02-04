@@ -7,15 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
-
 import kr.co.ajsoft.myutube.ItemActivity;
 import kr.co.ajsoft.myutube.Model.Item;
 import kr.co.ajsoft.myutube.R;
@@ -26,6 +25,9 @@ public class ItemAdapter extends RecyclerView.Adapter {
     Context context;
     String newStr,result,numresult2;
     double numresult1;
+
+
+
 
     public ItemAdapter(ArrayList<Item> items, Context context) {
         this.items = items;
@@ -55,7 +57,6 @@ public class ItemAdapter extends RecyclerView.Adapter {
         vh.publisher.setText(item.getPublisher());
 
 
-
         if(item.getImgUrl()==null){
             vh.itemIv.setVisibility(View.GONE);
         }else{
@@ -63,7 +64,6 @@ public class ItemAdapter extends RecyclerView.Adapter {
             Glide.with(context).load(item.getImgUrl()).into(vh.itemIv);
 
         }
-
     }
 
     String newDate(String str){
@@ -120,7 +120,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
             date=itemView.findViewById(R.id.item_date);
             views=itemView.findViewById(R.id.item_views);
             publisher=itemView.findViewById(R.id.item_publisher);
-            addList=itemView.findViewById(R.id.iv_add_list);
+            //addList=itemView.findViewById(R.id.iv_add_list);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

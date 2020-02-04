@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -53,6 +54,8 @@ public class ComicFragment extends Fragment {
 
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,11 +70,8 @@ public class ComicFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        items.clear();
+        //items.clear();
         arr.clear();
-
-
-
 
 
         //리사이클러의 배치관리자 설정
@@ -94,16 +94,12 @@ public class ComicFragment extends Fragment {
 
                         arr.add(i,url1);
 
-
-                        items.clear();
-
-
+                        //items.clear();
 
                         adapter.notifyDataSetChanged();
-
+                        //progressBar.setVisibility(View.GONE);
 
                         readRss();
-
 
                         //Toast.makeText(getContext(), arr+"", Toast.LENGTH_SHORT).show();
 
@@ -126,6 +122,8 @@ public class ComicFragment extends Fragment {
 
 
 
+
+
         refreshLayout=view.findViewById(R.id.layout_swipe);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -133,13 +131,7 @@ public class ComicFragment extends Fragment {
                 items.clear();
 
                 adapter.notifyDataSetChanged();
-
-
-
                 readRss();
-
-                Toast.makeText(getContext(), arr+"", Toast.LENGTH_SHORT).show();
-
 
             }
         });
@@ -162,6 +154,8 @@ public class ComicFragment extends Fragment {
                 ComicFragment.RssFeedTask task = new ComicFragment.RssFeedTask();
                 task.execute(url); //doInBackground() 메소드 발동(Thread의 start()와 같은 역할)
                 //배열 0 보내는 위치
+
+
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -260,13 +254,11 @@ public class ComicFragment extends Fragment {
                                 //UI변경 작업을 하고 싶다면..
                                 publishProgress();
 
-
                             }
                             break;
                     }
 
                     eventType=xpp.next();
-
                 }
 
             } catch (IOException e) {
@@ -275,7 +267,6 @@ public class ComicFragment extends Fragment {
                 e.printStackTrace();
             }
 
-
             return "파싱종료";
         }
 
@@ -283,18 +274,17 @@ public class ComicFragment extends Fragment {
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
             adapter.notifyItemInserted(items.size());
+
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-
             //adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
 
             //Toast.makeText(getContext(), s+""+items.size(), Toast.LENGTH_SHORT).show();
         }
-
     }
 }

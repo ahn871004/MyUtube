@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -53,6 +54,7 @@ public class TvFragment extends Fragment {
 
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,18 +63,14 @@ public class TvFragment extends Fragment {
 
         recyclerView=view.findViewById(R.id.recycler_tv);
 
-
-
         adapter=new ItemAdapter(items,getContext());
 
         recyclerView.setAdapter(adapter);
 
-        items.clear();
+        //items.clear();
         arr.clear();
 
-
-
-
+        
 
         //리사이클러의 배치관리자 설정
         LinearLayoutManager layoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
@@ -95,7 +93,7 @@ public class TvFragment extends Fragment {
                         arr.add(i,url1);
 
 
-                        items.clear();
+                        //items.clear();
 
 
 
@@ -138,16 +136,13 @@ public class TvFragment extends Fragment {
 
                 readRss();
 
-                //Toast.makeText(getContext(), arr+"", Toast.LENGTH_SHORT).show();
-
 
             }
         });
 
-
         return view;
-    }
 
+    }
 
     private void readRss() {
 
@@ -162,6 +157,7 @@ public class TvFragment extends Fragment {
                 TvFragment.RssFeedTask task = new TvFragment.RssFeedTask();
                 task.execute(url); //doInBackground() 메소드 발동(Thread의 start()와 같은 역할)
                 //배열 0 보내는 위치
+
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -240,8 +236,6 @@ public class TvFragment extends Fragment {
 
                             break;
 
-
-
                         case XmlPullParser.TEXT:
                             //Log.i(TAG_PARSE, "TEXT : " + xpp.getText());
 
@@ -259,14 +253,11 @@ public class TvFragment extends Fragment {
                                 //변경되었다는 것을 통지(화면갱신)
                                 //UI변경 작업을 하고 싶다면..
                                 publishProgress();
-
-
                             }
                             break;
                     }
 
                     eventType=xpp.next();
-
                 }
 
             } catch (IOException e) {
@@ -274,7 +265,6 @@ public class TvFragment extends Fragment {
             } catch (XmlPullParserException e) {
                 e.printStackTrace();
             }
-
 
             return "파싱종료";
         }

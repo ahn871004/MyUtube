@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -48,6 +49,8 @@ public class MukbangFragment extends Fragment {
     private String url1;
     private ArrayList arr=new ArrayList();
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,12 +59,11 @@ public class MukbangFragment extends Fragment {
         recyclerView=view.findViewById(R.id.recycler_mukbang);
 
 
-
         adapter=new ItemAdapter(items,getContext());
 
         recyclerView.setAdapter(adapter);
 
-        items.clear();
+        //items.clear();
         arr.clear();
 
 
@@ -89,7 +91,7 @@ public class MukbangFragment extends Fragment {
                         arr.add(i,url1);
 
 
-                        items.clear();
+                        //items.clear();
 
 
 

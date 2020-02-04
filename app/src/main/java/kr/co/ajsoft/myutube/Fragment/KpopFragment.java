@@ -61,6 +61,8 @@ public class KpopFragment extends Fragment {
 
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,11 +74,12 @@ public class KpopFragment extends Fragment {
 
 
 
+
         adapter=new ItemAdapter(items,getContext());
 
         recyclerView.setAdapter(adapter);
 
-        items.clear();
+        //items.clear();
         arr.clear();
 
 
@@ -103,12 +106,10 @@ public class KpopFragment extends Fragment {
 
                         arr.add(i,url1);
 
-
-                        items.clear();
-
-
+                        //items.clear();
 
                         adapter.notifyDataSetChanged();
+
 
 
                         readRss();
@@ -135,6 +136,7 @@ public class KpopFragment extends Fragment {
 
 
 
+
         refreshLayout=view.findViewById(R.id.layout_swipe);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -143,6 +145,7 @@ public class KpopFragment extends Fragment {
 
                 adapter.notifyDataSetChanged();
 
+
                 readRss();
 
                // Toast.makeText(getContext(), arr+"", Toast.LENGTH_SHORT).show();
@@ -150,6 +153,7 @@ public class KpopFragment extends Fragment {
 
             }
         });
+
 
 
         return view;
@@ -169,6 +173,7 @@ public class KpopFragment extends Fragment {
                 RssFeedTask task = new RssFeedTask();
                 task.execute(url); //doInBackground() 메소드 발동(Thread의 start()와 같은 역할)
                 //배열 0 보내는 위치
+
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -247,8 +252,6 @@ public class KpopFragment extends Fragment {
 
                             break;
 
-
-
                         case XmlPullParser.TEXT:
                             //Log.i(TAG_PARSE, "TEXT : " + xpp.getText());
 
@@ -296,11 +299,8 @@ public class KpopFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-
-            //adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
 
-            //Toast.makeText(getContext(), s+""+items.size(), Toast.LENGTH_SHORT).show();
         }
 
     }

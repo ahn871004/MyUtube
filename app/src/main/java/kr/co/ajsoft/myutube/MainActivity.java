@@ -18,9 +18,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Collections;
@@ -30,10 +33,11 @@ import kr.co.ajsoft.myutube.Fragment.KpopFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    //NavigationView navigationView;
+    NavigationView navigationView;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
     //SearchView searchView;
+
 
 
     TabLayout tabLayout;
@@ -41,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     ViewPager pager;
 
     FgViewAdapter adapter;
+
+    private long pressedTime=0;
+
 
 
 
@@ -53,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //navigationView=findViewById(R.id.nav);
-        //navigationView.setItemIconTintList(null);
+        navigationView=findViewById(R.id.nav);
+        navigationView.setItemIconTintList(null);
 
         drawerLayout=findViewById(R.id.layout_drawer);
         drawerToggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
@@ -64,9 +71,12 @@ public class MainActivity extends AppCompatActivity {
         tabLayout=findViewById(R.id.layout_tab);
 
 
+
+
         pager=findViewById(R.id.pager);
         adapter=new FgViewAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
+
 
         //TabLayout과 viewpager를 연동
         tabLayout.setupWithViewPager(pager);
@@ -165,4 +175,52 @@ public class MainActivity extends AppCompatActivity {
 //        // onOptionsItemSelected(new On)
 //    }
 
+    public  interface  OnBackPressedListener{
+        public void onBack();
+    }
+
+    private OnBackPressedListener mBackListener;
+
+    public void setOnBackPressedListener(OnBackPressedListener listener){
+        mBackListener=listener;
+    }
+
+    //뒤로가기 버튼누르면 앱 종료 & 다른 Fragment에서 뒤로가기 누르면 main으로 오는 메소드
+
+
+    @Override
+    public void onBackPressed() {
+        if(mBackListener!=null){
+            mBackListener.onBack();
+            Log.e("!!!","Listener is not null");
+
+
+        }else{
+            Log.e("!!!","Listener is null");
+            if(pressedTime==0){
+                Snackbar.make(findViewById(R.id.layout_drawer),"한 번 더 누르면 종료됩니다.",Snackbar.LENGTH_LONG).show();
+                pressedTime=System.currentTimeMillis();
+
+            }else{
+                int seconds=(int)(System.currentTimeMillis()-pressedTime);
+                if(seconds>2000){
+                    Snackbar.make(findViewById(R.id.layout_drawer),"한 번 더 누르면 종료됩니다.",Snackbar.LENGTH_LONG).show();
+                    pressedTime=0;
+
+                }else{
+                    super.onBackPressed();
+                    Log.e("!!!","onBackPressed : finish, killProcess");
+                    finish();
+                    //android.os.Process.killProcess(android.os.Process.myPid());
+                    finishAffinity();
+                    System.runFinalization();
+                    System.exit(0);
+
+                }
+
+            }
+
+        }
+
+    }
 }

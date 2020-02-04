@@ -7,22 +7,18 @@
     android:layout_marginBottom="5sp"
     >
 
-
-
-
         <ImageView
             android:id="@+id/item_iv"
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:src="@mipmap/ic_launcher_round"
             android:scaleType="fitXY"
-
             />
 
             <TextView
                 android:layout_below="@+id/item_iv"
                 android:id="@+id/item_title"
-                android:layout_width="320sp"
+                android:layout_width="280sp"
                 android:layout_height="wrap_content"
                 android:text="This is title"
                 android:textSize="16sp"
@@ -32,6 +28,7 @@
                 android:padding="4dp"
                 android:layout_marginLeft="10dp"
                 />
+
             <TextView
                 android:layout_below="@+id/item_title"
                 android:id="@+id/item_publisher"
@@ -43,19 +40,17 @@
                 android:layout_marginLeft="10dp"
                 />
 
-            <ImageButton
-                android:id="@+id/iv_add_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/item_iv"
-                android:src="@drawable/ic_add_list"
-                android:layout_alignParentRight="true"
-                android:backgroundTint="#00ffffff"
+<!--            <ImageButton-->
+<!--                android:id="@+id/iv_add_list"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/item_iv"-->
+<!--                android:src="@drawable/ic_add_list"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:backgroundTint="#00ffffff"-->
 
 
-                />
-
-
+<!--                />-->
 
         <TextView
             android:id="@+id/item_date"

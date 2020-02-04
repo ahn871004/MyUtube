@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -46,6 +47,7 @@ public class PetFragment extends Fragment {
     private String url1;
     private ArrayList arr=new ArrayList();
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class PetFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        items.clear();
+        //items.clear();
         arr.clear();
 
 
@@ -84,7 +86,7 @@ public class PetFragment extends Fragment {
                         arr.add(i,url1);
 
 
-                        items.clear();
+                        //items.clear();
 
 
 
@@ -261,6 +263,7 @@ public class PetFragment extends Fragment {
             } catch (XmlPullParserException e) {
                 e.printStackTrace();
             }
+
 
 
             return "파싱종료";

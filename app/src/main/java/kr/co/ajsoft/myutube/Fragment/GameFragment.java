@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -51,6 +52,8 @@ public class GameFragment extends Fragment {
     private String url1;
     private ArrayList arr=new ArrayList();
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,11 +63,12 @@ public class GameFragment extends Fragment {
 
 
 
+
         adapter=new ItemAdapter(items,getContext());
 
         recyclerView.setAdapter(adapter);
 
-        items.clear();
+        //items.clear();
         arr.clear();
 
 
@@ -92,7 +96,7 @@ public class GameFragment extends Fragment {
                         arr.add(i,url1);
 
 
-                        items.clear();
+                        //items.clear();
 
 
 

@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -57,17 +58,12 @@ public class KstarFragment extends Fragment {
 
         recyclerView=view.findViewById(R.id.recycler_kstar);
 
-
-
         adapter=new ItemAdapter(items,getContext());
 
         recyclerView.setAdapter(adapter);
 
-        items.clear();
+        //items.clear();
         arr.clear();
-
-
-
 
 
         //리사이클러의 배치관리자 설정
@@ -91,7 +87,7 @@ public class KstarFragment extends Fragment {
                         arr.add(i,url1);
 
 
-                        items.clear();
+                        //items.clear();
 
 
 
